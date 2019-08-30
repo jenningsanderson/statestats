@@ -1,0 +1,22 @@
+{
+  "name": "statestats",
+  "version": "1.0.0",
+  "description": "tile-reduce job to calculate stats per state for SOTMUS 2019",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jenningsanderson/statestats.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jenningsanderson/statestats/issues"
+  },
+  "homepage": "https://github.com/jenningsanderson/statestats#readme",
+  "dependencies": {
+    "@mapbox/tile-reduce": "^3.3.0"
+  }
+}
