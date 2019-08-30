@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/jenningsanderson/statestats#readme",
   "dependencies": {
-    "@mapbox/tile-reduce": "^3.3.0"
+    "@mapbox/tile-reduce": "^3.3.0",
+    "@mapbox/tilebelt": "^1.0.1",
+    "@turf/turf": "^5.1.6",
+    "lodash": "^4.17.15"
   }
 }
