@@ -16,6 +16,8 @@ if (process.argv.length < 3){
 
 var states = JSON.parse(fs.readFileSync(INPUT_FILE));
 
+var values = {};
+
 console.warn("Found " +states.features.length+ " possible areas for analysis in "+INPUT_FILE);
 
 function cleanedName(name){
@@ -28,11 +30,11 @@ var abbrevs = states.features.map(function(x){return cleanedName(x.properties.ST
 var bounds;
 
 if (names.indexOf(cleanedName(input)) > -1){
-  console.warn("Found area for: "+input + "\nOutput file will be:\tresults/"+cleanedName(input)+".json");
+  console.warn("Found area for: "+input);
   bounds = states.features[names.indexOf(cleanedName(input))]
 }else
   if (abbrevs.indexOf(cleanedName(input)) > -1){
-    console.warn("Found area for: "+input + "\nOutput file will be:\n\tresults/"+cleanedName(input)+"_users.json and\n\tresults/"+cleanedName(input)+".geojson");
+    console.warn("Found area for: "+input);
     bounds = states.features[abbrevs.indexOf(cleanedName(input))]
 }else{
   console.error("Sorry, "+INPUT_FILE+" does not contain a feature for "+input)
@@ -42,6 +44,23 @@ if (names.indexOf(cleanedName(input)) > -1){
 // process.exit(0)
 
 // console.warn(JSON.stringify(bounds))
+
+
+// TODO: Refactor this out and use again (I've written this function about 100x)
+function mergeAndSum(map1, map2){
+  try{
+    Object.keys(map2).forEach(function(k){
+      if (map1.hasOwnProperty(k)){
+        map1[k] += map2[k]
+      }else{
+        map1[k] = map2[k]
+      }
+    });
+    return map1;
+  }catch(e){
+    console.error(JSON.stringify(map1, null, 2), JSON.stringify(map2, null, 2));   
+  }
+}
 
 var users = {}
 
@@ -53,7 +72,10 @@ tileReduce({
     geojson: bounds.geometry
     // mapOptions: searchTerms
 })
-.on('reduce', function(res){
+.on('reduce', function(results){
+   
+  var res = results['users'];
+    
   //Iterate through the users that came back from each tile
   Object.keys(res).forEach(function(user){
 
@@ -71,6 +93,16 @@ tileReduce({
       users[user] = res[user]
 
     }
+  })
+  
+  Object.keys(results).forEach(function(k){
+    if(k != 'users'){
+      if (values.hasOwnProperty(k)){
+        values[k] = mergeAndSum(values[k], results[k]);
+      }else{
+        values[k] = results[k];
+      }
+    }  
   })
 })
 .on('end', function(){
@@ -99,11 +131,12 @@ tileReduce({
     count++;
   })
     
-  fs.writeFileSync("results/"+cleanedName(input)+".geojson", JSON.stringify(bounds))
+  fs.writeFileSync("results/geojson"+cleanedName(input)+".geojson", JSON.stringify(bounds))
     
   var sorted = _.sortBy(users_out, function(u){return -u.total_edits;})
 
-  fs.writeFileSync("results/"+cleanedName(input)+"_users.json", JSON.stringify(sorted))
+  fs.writeFileSync("results/json/"+cleanedName(input)+"_users.json", JSON.stringify(sorted))
+  fs.writeFileSync("results/json/"+cleanedName(input)+"_values.json", JSON.stringify(values))
   
   console.warn("DONE")
 })

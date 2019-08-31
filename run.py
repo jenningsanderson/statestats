@@ -16,4 +16,3 @@ for area in boundaries['features']:
     print("\t{}".format(command))
     
     os.system(command)
-                                        
