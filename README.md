@@ -47,7 +47,8 @@ This script is expecting `latest.planet-compact.mbtiles` in the parent directory
 
 
 <hr>
-#Wordcloud Examples
+
+# Wordcloud Examples
 
 ## Colorado `leisure` top values
 ![](results/wordclouds/colorado_wordcloud_leisure.png)
