@@ -31,7 +31,8 @@ module.exports = function(data, tile, writeData, done) {
         'ice_cream'    : 0,
         'dry_cleaning' : 0,
         'laundry'      : 0,
-        'total_objects'  : 0
+        'total_objects': 0,
+        'addrstreet'  : 0
       }
     }
 
@@ -45,12 +46,16 @@ module.exports = function(data, tile, writeData, done) {
       if( feat.properties.hasOwnProperty("building") && feat.properties.building != "no"){
         users[u].building += 1
       }
+        
+      if (feat.properties.hasOwnProperty("addr:street")) {
+        users[u].addrstreet += 1
+      }
 
       //Put other amenities here?
       
       if (feat.properties.hasOwnProperty("leisure") ){
         leisure.push(feat.properties.leisure);
-      } 
+      }
         
       //shop / amenity are exclusive
       if ( feat.properties.hasOwnProperty("amenity") ){

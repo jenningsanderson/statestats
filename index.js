@@ -131,7 +131,7 @@ tileReduce({
     count++;
   })
     
-  fs.writeFileSync("results/geojson"+cleanedName(input)+".geojson", JSON.stringify(bounds))
+  fs.writeFileSync("results/geojson/"+cleanedName(input)+".geojson", JSON.stringify(bounds))
     
   var sorted = _.sortBy(users_out, function(u){return -u.total_edits;})
 
