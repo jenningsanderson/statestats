@@ -15,7 +15,7 @@ The `results` folder contains the following folders:
 | folder | contents | 
 |--------|----------|
 | `csv`  | A CSV file per State/Territory containing per-mapper edit counts, such as `colorado_mappers.csv` | 
-| wordclouds | Wordclouds (images) visualizing the top 100 values for common keys, such as `amenity`, `shop`, and `leisure`. Calculated per tag, per State/Territory such as `arkansas_wordcloud_leisure.png`
+| `wordclouds` | Wordclouds (images) visualizing the top 100 values for common keys, such as `amenity`, `shop`, and `leisure`. Calculated per tag, per State/Territory such as `arkansas_wordcloud_leisure.png`
 | `json` | Output from tile-reduce, counts for users (`_users.json`) and tag values (`_values.json`)
 | `geojson` | Per State/Territory geojson file with stats produced by tile-reduce. |
 
