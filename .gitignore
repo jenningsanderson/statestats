@@ -1,9 +1,9 @@
-log
+# log
 .ipynb_checkpoints
-local_data/
+# local_data/
 .DS_Store
 # Logs
-logs
+# logs
 *.log
 npm-debug.log*
 yarn-debug.log*
